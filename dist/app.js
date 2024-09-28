@@ -9,4 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use('/api/keyword-search', keyword_search_1.default);
-exports.default = app;
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
