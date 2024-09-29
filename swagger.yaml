@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: Product Search API
+  description: API for searching products based on various criteria.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /api/product-search:
+    get:
+      summary: Search for products
+      description: Retrieve a list of products based on the provided search criteria.
+      parameters:
+        - name: keyword
+          in: query
+          description: Keyword to search for in product names.
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number for pagination.
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: city
+          in: query
+          description: City to filter products.
+          required: false
+          schema:
+            type: string
+        - name: condition
+          in: query
+          description: Condition of the product (e.g., new, used).
+          required: false
+          schema:
+            type: string
+        - name: brand
+          in: query
+          description: Brand of the product.
+          required: false
+          schema:
+            type: string
+        - name: release_year_above
+          in: query
+          description: Filter products released on or after this year.
+          required: false
+          schema:
+            type: integer
+        - name: release_year_below
+          in: query
+          description: Filter products released on or before this year.
+          required: false
+          schema:
+            type: integer
+        - name: price_above
+          in: query
+          description: Filter products with a price equal or above this value.
+          required: false
+          schema:
+            type: number
+            format: float
+        - name: price_below
+          in: query
+          description: Filter products with a price equal or below this value.
+          required: false
+          schema:
+            type: number
+            format: float
+      responses:
+        '200':
+          description: A list of products matching the search filter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of products found.
+                  devices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: Product ID
+                        product_name:
+                          type: string
+                          description: Name of the product
+                        city:
+                          type: string
+                          description: City where the product is located
+                        p_condition:
+                          type: string
+                          description: Condition of the product
+                        brand_name:
+                          type: string
+                          description: Brand name of the product
+                        release_year:
+                          type: integer
+                          description: Release year of the product
+                        price:
+                          type: number
+                          format: float
+                          description: Price of the product
+                        img:
+                          type: string
+                          description: URL of the product image
+        '400':
+          description: Bad request, invalid parameters.
+        '500':
+          description: Internal server error.
