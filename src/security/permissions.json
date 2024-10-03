@@ -1,0 +1,12 @@
+{
+    "groups" : [
+        {
+            "name" : "ADMIN",
+            "permissions" : [ "VIEW_PRODUCTS", "DELETE_PRODUCTS", "ADD_PRODUCTS", "UPDATE_PRODUCTS"]
+        },
+        {
+            "name" : "USER",
+            "permissions" : [ "VIEW_PRODUCTS"]
+        }
+    ]
+}
