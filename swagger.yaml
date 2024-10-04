@@ -124,5 +124,7 @@ paths:
           description: Bad request, invalid parameters.
         '401':
           description: Unauthorized, invalid token or no token provided.
+        '403':
+          description: Do not have permission.
         '500':
           description: Internal server error.

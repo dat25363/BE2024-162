@@ -1,10 +1,8 @@
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
-import dotenv from 'dotenv';
+import {FIREBASE} from "../config/constant"
 
-dotenv.config();
-
-const firebaseConfig = { storageBucket: process.env.FIREBASE_BUCKET};
+const firebaseConfig = { storageBucket: FIREBASE.STORAGE_BUCKET};
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);

@@ -3,12 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const SECRET_KEY = 'secret-key';
+const constant_1 = require("../config/constant");
 // Hàm tạo token
 const generateToken = (userData) => {
-    return jsonwebtoken_1.default.sign(userData, SECRET_KEY, { expiresIn: '12h' });
+    return jsonwebtoken_1.default.sign(userData, constant_1.TOKEN.SECRET_KEY || "", { expiresIn: constant_1.TOKEN.EXPIRE_TIME });
 };
-// Ví dụ về cách sử dụng hàm tạo token
-const token = generateToken({ id: 1, name: 'Tien Dat', group: 'USER' });
-console.log(token); // In token ra console
+exports.generateToken = generateToken;

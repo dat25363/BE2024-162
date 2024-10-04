@@ -22,6 +22,7 @@ const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const errorHandler_1 = require("./middlewares/errorHandler");
 const auth_1 = require("./middlewares/auth");
 const constant_1 = require("./config/constant");
+const generateToken_1 = require("./utils/generateToken");
 // Tạo instance của PrismaClient và Express
 const app = (0, express_1.default)();
 const prismaClient = new client_1.PrismaClient();
@@ -42,10 +43,11 @@ app.use(constant_1.Routes.API_SEARCH_PRODUCT, productRoutes_1.default);
 //middleware xử lý lỗi
 app.use(errorHandler_1.errorHandler);
 // Khởi động server
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-    console.log(`Swagger docs are available on http://localhost:${port}/api-docs`);
+const token = (0, generateToken_1.generateToken)({ id: constant_1.USER_DATA.ID, name: constant_1.USER_DATA.NAME, group: constant_1.USER_DATA.GROUP });
+app.listen(constant_1.PORT, () => {
+    console.log(`Server is running on http://localhost:${constant_1.PORT}`);
+    console.log(`Swagger docs are available on http://localhost:${constant_1.PORT}/api-docs`);
+    console.log(`Token: ${token}`);
 });
 // Ngắt kết nối Prisma khi dừng server
 process.on('SIGINT', () => __awaiter(void 0, void 0, void 0, function* () {

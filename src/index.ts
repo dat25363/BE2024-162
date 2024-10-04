@@ -7,7 +7,8 @@ import { PrismaClient } from '@prisma/client';
 import productRoute from "./routes/productRoutes";
 import { errorHandler } from './middlewares/errorHandler';
 import { authenticateByToken } from './middlewares/auth';
-import {Routes} from "./config/constant";
+import {Routes, USER_DATA, PORT} from "./config/constant";
+import { generateToken } from './utils/generateToken';
 
 
 // Tạo instance của PrismaClient và Express
@@ -38,10 +39,12 @@ app.use(Routes.API_SEARCH_PRODUCT, productRoute);
 app.use(errorHandler);
 
 // Khởi động server
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-  console.log(`Swagger docs are available on http://localhost:${port}/api-docs`);
+const token = generateToken({ id: USER_DATA.ID, name: USER_DATA.NAME, group: USER_DATA.GROUP });
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Swagger docs are available on http://localhost:${PORT}/api-docs`);
+  console.log(`Token: ${token}`); 
 });
 
 // Ngắt kết nối Prisma khi dừng server

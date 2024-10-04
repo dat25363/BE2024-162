@@ -1,18 +1,8 @@
-import jwt from 'jsonwebtoken';
-
-const SECRET_KEY = 'secret-key';
-
-interface UserData {
-    id: number;
-    name: string;
-    group: string;
-}
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { TOKEN, USER_DATA } from "../config/constant";
 
 // Hàm tạo token
-const generateToken = (userData: UserData) => {
-    return jwt.sign(userData, SECRET_KEY, { expiresIn: '12h' });
+export const generateToken = (userData: JwtPayload) => {
+    return jwt.sign(userData, TOKEN.SECRET_KEY || "", { expiresIn: TOKEN.EXPIRE_TIME });
 };
 
-// Ví dụ về cách sử dụng hàm tạo token
-const token = generateToken({ id: 1, name: 'Tien Dat', group: 'USER' });
-console.log(token); // In token ra console

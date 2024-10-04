@@ -6,12 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkGroupPermission = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const permissions_groups_1 = require("../security/permissions-groups");
 const permissionsFilePath = path_1.default.resolve(__dirname, "../../src/security/permissions.json");
 const GroupPermissions = JSON.parse(fs_1.default.readFileSync(permissionsFilePath, "utf8"));
 const checkGroupPermission = (groupName, requiredPermission) => {
-    let permissionData = GroupPermissions.groups.find((group) => permissions_groups_1.Groups[group.name] === groupName);
-    permissionData.permissions = permissionData.permissions.map((per) => permissions_groups_1.Permissions[per]);
+    const permissionData = GroupPermissions.groups.find((group) => group.name === groupName);
+    console.log(requiredPermission);
+    console.log(permissionData);
+    console.log(groupName);
     if (permissionData &&
         permissionData.permissions.includes(requiredPermission)) {
         return true;

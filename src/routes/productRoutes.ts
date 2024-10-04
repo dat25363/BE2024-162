@@ -2,7 +2,7 @@ import express from "express";
 import { searchProducts } from "../controllers/productController";
 import { validateQuery } from "../middlewares/validateQuery";
 import { checkPermission } from "../middlewares/checkPermission";
-import {Permissions} from '../security/permissions-groups'
+import {Permissions} from '../config/constant'
 import {Routes} from "../config/constant";
 
 const router = express.Router();

@@ -1,7 +1,25 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.STATUS_CODES = exports.Routes = exports.Messages = void 0;
-exports.Messages = {
+exports.Groups = exports.Permissions = exports.STATUS_CODES = exports.Routes = exports.MESSAGES = exports.TOKEN = exports.USER_DATA = exports.FIREBASE = exports.PORT = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+exports.PORT = process.env.PORT;
+exports.FIREBASE = {
+    STORAGE_BUCKET: process.env.FIREBASE_BUCKET
+};
+exports.USER_DATA = {
+    ID: process.env.USER_ID,
+    NAME: process.env.USER_NAME,
+    GROUP: process.env.USER_GROUP
+};
+exports.TOKEN = {
+    SECRET_KEY: process.env.SECRET_KEY,
+    EXPIRE_TIME: process.env.EXPIRE_TIME
+};
+exports.MESSAGES = {
     UNAUTHORIZED: 'Unauthorized',
     BAD_REQUEST: 'Bad Request',
     FORBIDDEN: 'Forbidden',
@@ -33,4 +51,14 @@ exports.STATUS_CODES = {
     BAD_GATEWAY: 502,
     SERVICE_UNAVAILABLE: 503,
     GATEWAY_TIMEOUT: 504
+};
+exports.Permissions = {
+    VIEW_PRODUCTS: 'view products',
+    DELETE_PRODUCTS: 'delete products',
+    ADD_PRODUCTS: 'add products',
+    UPDATE_PRODUCTS: 'update products'
+};
+exports.Groups = {
+    ADMIN: 'admin',
+    USER: 'user'
 };

@@ -1,6 +1,6 @@
 import { SearchParams } from "../models/Product";
-import { Products } from "@prisma/client";
+import { Product } from "../models/Product";
 
 export interface ProductInterface {
-    productSearch(params: SearchParams): Promise<{ total: number; Products: any[] }>; 
+    productSearch(params: SearchParams): Promise<{ total: number; Products: Product[] }>; 
 }

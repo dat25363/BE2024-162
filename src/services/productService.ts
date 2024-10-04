@@ -1,4 +1,4 @@
-import { PrismaClient, Products } from "@prisma/client";
+import { Product } from "../models/Product";
 import prismaClient from "../index";
 import { ProductInterface } from "../interfaces/productInterface";
 import getImageUrl from "../utils/getImageUrl";
@@ -7,7 +7,7 @@ import { SearchParams } from "../models/Product";
 export class ProductService implements ProductInterface {
   async productSearch(
     params: SearchParams
-  ): Promise<{ total: number; Products: any[] }> {
+  ): Promise<{ total: number; Products: Product[] }> {
     const {
       keyword,
       page = 1,
