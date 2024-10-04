@@ -10,9 +10,6 @@ const permissionsFilePath = path_1.default.resolve(__dirname, "../../src/securit
 const GroupPermissions = JSON.parse(fs_1.default.readFileSync(permissionsFilePath, "utf8"));
 const checkGroupPermission = (groupName, requiredPermission) => {
     const permissionData = GroupPermissions.groups.find((group) => group.name === groupName);
-    console.log(requiredPermission);
-    console.log(permissionData);
-    console.log(groupName);
     if (permissionData &&
         permissionData.permissions.includes(requiredPermission)) {
         return true;
