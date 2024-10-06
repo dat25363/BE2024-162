@@ -12,16 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkGroupPermission = void 0;
-const getGroupPermission_1 = __importDefault(require("./getGroupPermission"));
-const checkGroupPermission = (groupName, requiredPermission) => __awaiter(void 0, void 0, void 0, function* () {
-    const GroupPermissions = yield (0, getGroupPermission_1.default)();
-    const permissionData = GroupPermissions.find((group) => group.group_name === groupName);
-    if (permissionData && permissionData.permissions.includes(requiredPermission)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-});
-exports.checkGroupPermission = checkGroupPermission;
+const index_1 = __importDefault(require("../index"));
+function getGroupPermission() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const groups = yield index_1.default.userGroups.findMany({
+            include: {
+                permissions: {
+                    include: {
+                        permission: true,
+                    },
+                },
+            },
+        });
+        const formattedGroups = groups.map(group => ({
+            group_name: group.group_name,
+            permissions: group.permissions.map(groupPermission => groupPermission.permission.permission),
+        }));
+        return formattedGroups;
+    });
+}
+exports.default = getGroupPermission;

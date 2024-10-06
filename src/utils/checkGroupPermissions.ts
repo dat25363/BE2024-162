@@ -1,29 +1,16 @@
-import fs from "fs";
-import path from "path";
-import {Group} from "../models/Group"
+import {UserGroup} from "../models/UserGroup";
+import getGroupPermission from "./getGroupPermission";
 
-const permissionsFilePath = path.resolve(
-  __dirname,
-  "../../src/security/permissions.json"
-);
-const GroupPermissions = JSON.parse(
-  fs.readFileSync(permissionsFilePath, "utf8")
-);
-
-
-export const checkGroupPermission = (
+export const checkGroupPermission = async (
   groupName: string,
   requiredPermission: string
 ) => {
-  const permissionData = GroupPermissions.groups.find(
-    (group: Group) => group.name === groupName
+  const GroupPermissions: UserGroup[] = await getGroupPermission();
+  const permissionData = GroupPermissions.find(
+    (group: UserGroup) => group.group_name === groupName
   );
- 
-  if (
-    permissionData &&
-    permissionData.permissions.includes(requiredPermission)
-  ) {
-    return true;
+  if (permissionData && permissionData.permissions.includes(requiredPermission)) {
+    return true; 
   } else {
     return false;
   }

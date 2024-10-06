@@ -1,25 +1,4 @@
-CREATE DATABASE IF NOT EXISTS BE2024_162;
 use BE2024_162;
-
-CREATE TABLE brands(
-id INT AUTO_INCREMENT PRIMARY KEY,
-brand_name VARCHAR(100)
-);
-
-CREATE TABLE products(
-id INT AUTO_INCREMENT PRIMARY KEY,
-product_name VARCHAR(100),
-img varchar(100),
-city VARCHAR(20),
-brand_id INT(20),
-release_year INT(5),
-p_condition VARCHAR(20),
-delivery_status VARCHAR(20),
-issold BOOLEAN,
-price INT(20),
-FOREIGN KEY (brand_id) REFERENCES products(id)
-);
-
 
 INSERT INTO brands (brand_name) VALUES
 ('Caterpillar'),
@@ -49,3 +28,20 @@ INSERT INTO products (product_name, img, city, brand_id, release_year, p_conditi
 ('Máy nghiền đá Hitachi ZW220', 'img1.jpg', 'Bảo Lộc', 3, 2021, 'Cũ', 'Sẵn sàng', false, 400000),
 ('Xe cẩu Liebherr LTM 1300', 'img1.jpg', 'Bắc Giang', 4, 2020, 'Mới', 'Sẵn sàng', false, 1800000),
 ('Máy xúc lật Podemcrane ZL30', 'img1.jpg', 'Bắc Kạn', 5, 2021, 'Cũ', 'Sẵn sàng', false, 600000);
+
+INSERT INTO userGroups (group_name) VALUES
+('admin'),
+('user');
+
+INSERT INTO permissions (permission) VALUES
+('view products'),
+('delete products'),
+('add products'),
+('update products');
+
+INSERT INTO groupPermission (userGroupId, permissionId) VALUES
+(1, 1),  -- admin - view products
+(1, 2),  -- admin - delete products
+(1, 3),  -- admin - add products
+(1, 4),  -- admin - update products
+(2, 1);  -- user - view products

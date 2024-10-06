@@ -9,7 +9,7 @@ import { JwtPayload } from 'jsonwebtoken';
 // Định nghĩa kiểu dữ liệu cho payload của token người dùng
 
 export const checkPermission = (requiredPermission: string) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const user = (req as CustomRequest).user as JwtPayload; // Lấy thông tin người dùng từ token
     // Kiểm tra xem người dùng có thuộc một nhóm hợp lệ không
     if (!user || !user.group) {
@@ -18,7 +18,8 @@ export const checkPermission = (requiredPermission: string) => {
     }        
 
     // Kiểm tra nếu nhóm tồn tại và có quyền cần thiết
-    if (user.group && checkGroupPermission(user.group, requiredPermission)) {
+    const havePermission = await checkGroupPermission(user.group, requiredPermission);
+    if (user.group && havePermission ) {
       return next(); // Nếu người dùng có quyền, tiếp tục middleware
     } else {
       const error = new CustomError( STATUS_CODES.FORBIDDEN, MESSAGES.FORBIDDEN);

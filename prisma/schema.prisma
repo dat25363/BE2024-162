@@ -13,13 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Brands {
+model brands {
   id         Int      @id @default(autoincrement())
   brand_name String   @db.VarChar(100)
-  products   Products[] 
+  products   products[] 
 }
 
-model Products {
+model products {
   id             Int      @id @default(autoincrement())
   product_name   String   @db.VarChar(100)
   img            String  @db.VarChar(100)
@@ -30,5 +30,27 @@ model Products {
   isSold         Boolean  @default(false)
   price          Int     @db.Int
   brand_id       Int
-  brand          Brands   @relation(fields: [brand_id], references: [id]) 
+  brand          brands   @relation(fields: [brand_id], references: [id]) 
+}
+
+model userGroups {
+  id          Int            @id @default(autoincrement())
+  group_name        String         @db.VarChar(50)
+  permissions groupPermission[] 
+}
+
+model permissions {
+  id          Int            @id @default(autoincrement())
+  permission  String         @db.VarChar(50)
+  userGroups      groupPermission[]  
+}
+
+model groupPermission {
+  userGroupId       Int
+  permissionId      Int
+
+  userGroup     userGroups        @relation(fields: [userGroupId], references: [id], onDelete: Cascade)
+  permission    permissions       @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([userGroupId, permissionId])
 }
