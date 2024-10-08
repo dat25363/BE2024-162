@@ -54,3 +54,7 @@ model groupPermission {
 
   @@id([userGroupId, permissionId])
 }
+
+
+// npx prisma migrate dev --name init
+// npx prisma generate 
