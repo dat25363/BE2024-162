@@ -27,6 +27,7 @@ const validateQuery = (req, res, next) => {
     if (min_price) {
         if (isNaN(Number(min_price)) || Number(min_price) < 0) {
             const error = new CustomError_1.default(constant_1.STATUS_CODES.BAD_REQUEST, constant_1.MESSAGES.BAD_REQUEST);
+            return next(error);
         }
     }
     if (max_price) {

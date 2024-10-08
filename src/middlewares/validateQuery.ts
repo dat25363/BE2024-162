@@ -40,6 +40,7 @@ export const validateQuery = (
         STATUS_CODES.BAD_REQUEST,
         MESSAGES.BAD_REQUEST
       );
+      return next(error);
     }
   }
   if (max_price) {

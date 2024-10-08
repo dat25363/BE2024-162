@@ -25,14 +25,14 @@ export class ProductService implements ProductInterface {
     const where: any = { isSold: false };
 
     if (keyword)
-      where.product_name = { contains: keyword, mode: "insensitive" };
+      where.product_name = { contains: keyword.toLowerCase() };
     if (brand) where.brand = { brand_name: brand };
     if (city) where.city = city;
     if (condition) where.p_condition = condition;
-    if (release_year_above) where.release_year = { gte: release_year_above };
-    if (release_year_below) where.release_year = { lte: release_year_below };
-    if (min_price) where.price = { gte: min_price };
-    if (max_price) where.price = { lte: max_price };
+    if (release_year_above) where.release_year = { gte: Number(release_year_above) };
+    if (release_year_below) where.release_year = { lte: Number(release_year_below) };
+    if (min_price) where.price = { gte: Number(min_price) };
+    if (max_price) where.price = { lte: Number(max_price) };
 
     const [results, total] = await Promise.all([
       prismaClient.products.findMany({
