@@ -24,9 +24,9 @@ function getGroupPermission() {
                 },
             },
         });
-        const formattedGroups = groups.map(group => ({
+        const formattedGroups = groups.map((group) => ({
             group_name: group.group_name,
-            permissions: group.permissions.map(groupPermission => groupPermission.permission.permission),
+            permissions: group.permissions.map((groupPermission) => groupPermission.permission.permission),
         }));
         return formattedGroups;
     });

@@ -46,6 +46,17 @@ CREATE TABLE `groupPermission` (
     PRIMARY KEY (`userGroupId`, `permissionId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `users` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `phone` VARCHAR(50) NOT NULL,
+    `pass` VARCHAR(100) NOT NULL,
+    `userGroup_id` INTEGER NOT NULL,
+
+    UNIQUE INDEX `users_phone_key`(`phone`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `products` ADD CONSTRAINT `products_brand_id_fkey` FOREIGN KEY (`brand_id`) REFERENCES `brands`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -54,3 +65,6 @@ ALTER TABLE `groupPermission` ADD CONSTRAINT `groupPermission_userGroupId_fkey` 
 
 -- AddForeignKey
 ALTER TABLE `groupPermission` ADD CONSTRAINT `groupPermission_permissionId_fkey` FOREIGN KEY (`permissionId`) REFERENCES `permissions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `users` ADD CONSTRAINT `users_userGroup_id_fkey` FOREIGN KEY (`userGroup_id`) REFERENCES `userGroups`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -19,10 +19,9 @@ const yamljs_1 = __importDefault(require("yamljs"));
 const path_1 = __importDefault(require("path"));
 const client_1 = require("@prisma/client");
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const errorHandler_1 = require("./middlewares/errorHandler");
-const auth_1 = require("./middlewares/auth");
 const constant_1 = require("./config/constant");
-const generateToken_1 = require("./utils/generateToken");
 // Tạo instance của PrismaClient và Express
 const app = (0, express_1.default)();
 const prismaClient = new client_1.PrismaClient();
@@ -34,20 +33,19 @@ prismaClient.$connect()
     .catch(err => console.error("Failed to connect to the database:", err));
 // Sử dụng CORS middleware
 app.use((0, cors_1.default)());
+// xử lý body JSON
+app.use(express_1.default.json());
 // Cấu hình Swagger UI
 app.use(constant_1.Routes.SWAGGER, swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocument));
-//middleware xác thực token
-app.use(auth_1.authenticateByToken);
-// Sử dụng các route cho product search
+// Sử dụng các route
 app.use(constant_1.Routes.API_SEARCH_PRODUCT, productRoutes_1.default);
+app.use(constant_1.Routes.API_LOGIN, userRoutes_1.default);
 //middleware xử lý lỗi
 app.use(errorHandler_1.errorHandler);
 // Khởi động server
-const token = (0, generateToken_1.generateToken)({ id: constant_1.USER_DATA.ID, name: constant_1.USER_DATA.NAME, group: constant_1.USER_DATA.GROUP });
 app.listen(constant_1.PORT, () => {
     console.log(`Server is running on http://localhost:${constant_1.PORT}`);
     console.log(`Swagger docs are available on http://localhost:${constant_1.PORT}/api-docs`);
-    console.log(`Token: ${token}`);
 });
 // Ngắt kết nối Prisma khi dừng server
 process.on('SIGINT', () => __awaiter(void 0, void 0, void 0, function* () {

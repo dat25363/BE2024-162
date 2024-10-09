@@ -5,10 +5,9 @@ import YAML from "yamljs";
 import path from "path";
 import { PrismaClient } from '@prisma/client'; 
 import productRoute from "./routes/productRoutes";
+import userRoute from "./routes/userRoutes";
 import { errorHandler } from './middlewares/errorHandler';
-import { authenticateByToken } from './middlewares/auth';
-import {Routes, USER_DATA, PORT} from "./config/constant";
-import { generateToken } from './utils/generateToken';
+import {Routes, PORT} from "./config/constant";
 
 
 // Tạo instance của PrismaClient và Express
@@ -26,25 +25,24 @@ prismaClient.$connect()
 // Sử dụng CORS middleware
 app.use(cors());
 
+// xử lý body JSON
+app.use(express.json());
+
 // Cấu hình Swagger UI
 app.use(Routes.SWAGGER, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-//middleware xác thực token
-app.use(authenticateByToken);
-
-// Sử dụng các route cho product search
+// Sử dụng các route
 app.use(Routes.API_SEARCH_PRODUCT, productRoute);
+app.use(Routes.API_LOGIN, userRoute);
 
 //middleware xử lý lỗi
 app.use(errorHandler);
 
 // Khởi động server
-const token = generateToken({ id: USER_DATA.ID, name: USER_DATA.NAME, group: USER_DATA.GROUP });
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   console.log(`Swagger docs are available on http://localhost:${PORT}/api-docs`);
-  console.log(`Token: ${token}`); 
 });
 
 // Ngắt kết nối Prisma khi dừng server

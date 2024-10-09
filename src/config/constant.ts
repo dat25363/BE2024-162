@@ -30,7 +30,9 @@ export const MESSAGES = {
 export const Routes = {
     ROOT : '/',
     API_SEARCH_PRODUCT: '/api/product-search',
+    API_LOGIN: '/api/login',
     SWAGGER: '/api-docs'
+
 };
 
 export const STATUS_CODES = {

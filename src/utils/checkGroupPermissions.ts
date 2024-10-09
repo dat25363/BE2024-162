@@ -1,4 +1,4 @@
-import {UserGroup} from "../models/UserGroup";
+import { UserGroup } from "../models/UserGroup";
 import getGroupPermission from "./getGroupPermission";
 
 export const checkGroupPermission = async (
@@ -9,8 +9,11 @@ export const checkGroupPermission = async (
   const permissionData = GroupPermissions.find(
     (group: UserGroup) => group.group_name === groupName
   );
-  if (permissionData && permissionData.permissions.includes(requiredPermission)) {
-    return true; 
+  if (
+    permissionData &&
+    permissionData.permissions.includes(requiredPermission)
+  ) {
+    return true;
   } else {
     return false;
   }

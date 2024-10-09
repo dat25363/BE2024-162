@@ -30,6 +30,7 @@ exports.MESSAGES = {
 exports.Routes = {
     ROOT: '/',
     API_SEARCH_PRODUCT: '/api/product-search',
+    API_LOGIN: '/api/login',
     SWAGGER: '/api-docs'
 };
 exports.STATUS_CODES = {

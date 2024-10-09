@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { TOKEN, USER_DATA } from "../config/constant";
+import { TOKEN } from "../config/constant";
 
 // Hàm tạo token
 export const generateToken = (userData: JwtPayload) => {

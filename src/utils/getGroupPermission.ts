@@ -1,4 +1,4 @@
-import prismaClient from "../index"
+import prismaClient from "../index";
 import { UserGroup } from "../models/UserGroup";
 
 async function getGroupPermission() {
@@ -12,9 +12,11 @@ async function getGroupPermission() {
     },
   });
 
-  const formattedGroups: UserGroup[] = groups.map(group => ({
+  const formattedGroups: UserGroup[] = groups.map((group) => ({
     group_name: group.group_name,
-    permissions: group.permissions.map(groupPermission => groupPermission.permission.permission),
+    permissions: group.permissions.map(
+      (groupPermission) => groupPermission.permission.permission
+    ),
   }));
 
   return formattedGroups;

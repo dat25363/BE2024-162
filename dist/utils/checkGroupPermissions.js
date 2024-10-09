@@ -17,7 +17,8 @@ const getGroupPermission_1 = __importDefault(require("./getGroupPermission"));
 const checkGroupPermission = (groupName, requiredPermission) => __awaiter(void 0, void 0, void 0, function* () {
     const GroupPermissions = yield (0, getGroupPermission_1.default)();
     const permissionData = GroupPermissions.find((group) => group.group_name === groupName);
-    if (permissionData && permissionData.permissions.includes(requiredPermission)) {
+    if (permissionData &&
+        permissionData.permissions.includes(requiredPermission)) {
         return true;
     }
     else {

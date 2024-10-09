@@ -45,3 +45,7 @@ INSERT INTO groupPermission (userGroupId, permissionId) VALUES
 (1, 3),  -- admin - add products
 (1, 4),  -- admin - update products
 (2, 1);  -- user - view products
+
+INSERT INTO users(phone,pass,userGroup_id) VALUES
+('admin','$2a$12$Z5FZahud2tI2JRfAyy.iO.b6Rdg6fwRbCIzo7AbiKbt9ABOqRYbBy',1),
+('user','$2a$12$sgRf9EniS2D2IguqZAQDr.EU9dBdwSA6x2VfLL9yTWBfnwUsb/2US',2);

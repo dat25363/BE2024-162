@@ -128,3 +128,41 @@ paths:
           description: Do not have permission.
         '500':
           description: Internal server error.
+
+  /api/login:
+    post:
+      summary: User login
+      description: Authenticate a user and retrieve a JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  description: Phone number of the user.
+                pass:
+                  type: string
+                  description: Password of the user.
+              required:
+                - phone
+                - pass
+      responses:
+        '200':
+          description: Login successful, returns a JWT token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT token for authenticated requests.
+        '400':
+          description: Bad request, invalid parameters.
+        '401':
+          description: Unauthorized, invalid phone or password.
+        '500':
+          description: Internal server error.
