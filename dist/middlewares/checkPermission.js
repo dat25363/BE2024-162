@@ -13,11 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkPermission = void 0;
-const checkGroupPermissions_1 = require("../utils/checkGroupPermissions");
+const getGroupPermission_1 = __importDefault(require("../utils/getGroupPermission"));
+const getRequiredPermission_1 = __importDefault(require("../utils/getRequiredPermission"));
 const constant_1 = require("../config/constant");
 const CustomError_1 = __importDefault(require("../models/CustomError"));
 // Định nghĩa kiểu dữ liệu cho payload của token người dùng
-const checkPermission = (requiredPermission) => {
+const checkPermission = (routeName) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const user = req.user; // Lấy thông tin người dùng từ token
         // Kiểm tra xem người dùng có thuộc một nhóm hợp lệ không
@@ -26,8 +27,11 @@ const checkPermission = (requiredPermission) => {
             return next(error);
         }
         // Kiểm tra nếu nhóm tồn tại và có quyền cần thiết
-        const havePermission = yield (0, checkGroupPermissions_1.checkGroupPermission)(user.group, requiredPermission);
-        if (user.group && havePermission) {
+        const permissions = yield (0, getGroupPermission_1.default)(user.group);
+        const requiredPermission = yield (0, getRequiredPermission_1.default)(routeName);
+        if (permissions &&
+            requiredPermission &&
+            requiredPermission.every((perm) => permissions.includes(perm))) {
             return next(); // Nếu người dùng có quyền, tiếp tục middleware
         }
         else {

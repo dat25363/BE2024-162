@@ -35,6 +35,10 @@ export const Routes = {
 
 };
 
+export const routeName = {
+    SEARCH_PRODUCT: "search product"
+}
+
 export const STATUS_CODES = {
     OK: 200,
     CREATED: 201,
@@ -54,13 +58,6 @@ export const STATUS_CODES = {
     BAD_GATEWAY: 502,
     SERVICE_UNAVAILABLE: 503,
     GATEWAY_TIMEOUT: 504
-};
-
-export const Permissions: any = {
-    VIEW_PRODUCTS: 'view products',
-    DELETE_PRODUCTS: 'delete products',
-    ADD_PRODUCTS: 'add products',
-    UPDATE_PRODUCTS: 'update products'
 };
 
 export const Groups: any = {

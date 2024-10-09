@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Groups = exports.Permissions = exports.STATUS_CODES = exports.Routes = exports.MESSAGES = exports.TOKEN = exports.USER_DATA = exports.FIREBASE = exports.PORT = void 0;
+exports.Groups = exports.STATUS_CODES = exports.routeName = exports.Routes = exports.MESSAGES = exports.TOKEN = exports.USER_DATA = exports.FIREBASE = exports.PORT = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.PORT = process.env.PORT;
@@ -33,6 +33,9 @@ exports.Routes = {
     API_LOGIN: '/api/login',
     SWAGGER: '/api-docs'
 };
+exports.routeName = {
+    SEARCH_PRODUCT: "search product"
+};
 exports.STATUS_CODES = {
     OK: 200,
     CREATED: 201,
@@ -52,12 +55,6 @@ exports.STATUS_CODES = {
     BAD_GATEWAY: 502,
     SERVICE_UNAVAILABLE: 503,
     GATEWAY_TIMEOUT: 504
-};
-exports.Permissions = {
-    VIEW_PRODUCTS: 'view products',
-    DELETE_PRODUCTS: 'delete products',
-    ADD_PRODUCTS: 'add products',
-    UPDATE_PRODUCTS: 'update products'
 };
 exports.Groups = {
     ADMIN: 'admin',

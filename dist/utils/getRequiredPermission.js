@@ -13,27 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../index"));
-function getGroupPermission(group_name) {
+function getRequiredPermission(routeName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const group = yield index_1.default.userGroups.findUnique({
+        const route = yield index_1.default.routes.findUnique({
             where: {
-                group_name: group_name,
+                route_name: routeName, // Tìm kiếm theo tên route
             },
             include: {
                 permissions: {
                     include: {
                         permission: true,
-                    },
-                },
+                    }
+                }
             },
         });
-        if (group) {
-            const permissions = group.permissions.map((groupPermission) => groupPermission.permission.permission_name);
-            return permissions;
+        if (!route || !route.permissions) {
+            return null; // Nếu không tìm thấy route hoặc không có quyền liên quan
         }
-        else {
-            return null;
-        }
+        // Trả về danh sách quyền dưới dạng mảng chuỗi
+        return route.permissions.map((permissions) => permissions.permission.permission_name);
     });
 }
-exports.default = getGroupPermission;
+exports.default = getRequiredPermission;

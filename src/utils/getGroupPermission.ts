@@ -1,8 +1,10 @@
 import prismaClient from "../index";
-import { UserGroup } from "../models/UserGroup";
 
-async function getGroupPermission() {
-  const groups = await prismaClient.userGroups.findMany({
+async function getGroupPermission(group_name: string) {
+  const group = await prismaClient.userGroups.findUnique({
+    where: {
+      group_name: group_name,
+    },
     include: {
       permissions: {
         include: {
@@ -12,14 +14,14 @@ async function getGroupPermission() {
     },
   });
 
-  const formattedGroups: UserGroup[] = groups.map((group) => ({
-    group_name: group.group_name,
-    permissions: group.permissions.map(
-      (groupPermission) => groupPermission.permission.permission
-    ),
-  }));
-
-  return formattedGroups;
+  if (group) {
+    const permissions = group.permissions.map(
+      (groupPermission) => groupPermission.permission.permission_name
+    );
+    return permissions;
+  } else {
+    return null;
+  }
 }
 
 export default getGroupPermission;

@@ -11,5 +11,5 @@ const constant_1 = require("../config/constant");
 const constant_2 = require("../config/constant");
 const auth_1 = require("../middlewares/auth");
 const router = express_1.default.Router();
-router.get(constant_2.Routes.ROOT, auth_1.authenticateByToken, (0, checkPermission_1.checkPermission)(constant_1.Permissions.VIEW_PRODUCTS), validateQuery_1.validateQuery, productController_1.searchProducts);
+router.get(constant_2.Routes.ROOT, auth_1.authenticateByToken, (0, checkPermission_1.checkPermission)(constant_1.routeName.SEARCH_PRODUCT), validateQuery_1.validateQuery, productController_1.searchProducts);
 exports.default = router;

@@ -27,13 +27,14 @@ CREATE TABLE `userGroups` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `group_name` VARCHAR(50) NOT NULL,
 
+    UNIQUE INDEX `userGroups_group_name_key`(`group_name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `permissions` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `permission` VARCHAR(50) NOT NULL,
+    `permission_name` VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -57,6 +58,23 @@ CREATE TABLE `users` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `routes` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `route_name` VARCHAR(255) NOT NULL,
+
+    UNIQUE INDEX `routes_route_name_key`(`route_name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `routePermission` (
+    `routeId` INTEGER NOT NULL,
+    `permissionId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`routeId`, `permissionId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `products` ADD CONSTRAINT `products_brand_id_fkey` FOREIGN KEY (`brand_id`) REFERENCES `brands`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -68,3 +86,9 @@ ALTER TABLE `groupPermission` ADD CONSTRAINT `groupPermission_permissionId_fkey`
 
 -- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_userGroup_id_fkey` FOREIGN KEY (`userGroup_id`) REFERENCES `userGroups`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `routePermission` ADD CONSTRAINT `routePermission_routeId_fkey` FOREIGN KEY (`routeId`) REFERENCES `routes`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `routePermission` ADD CONSTRAINT `routePermission_permissionId_fkey` FOREIGN KEY (`permissionId`) REFERENCES `permissions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
