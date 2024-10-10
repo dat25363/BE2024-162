@@ -35,8 +35,7 @@ const checkPermission = (routeName) => {
             return next(); // Nếu người dùng có quyền, tiếp tục middleware
         }
         else {
-            const error = new CustomError_1.default(constant_1.STATUS_CODES.FORBIDDEN, constant_1.MESSAGES.FORBIDDEN);
-            return next(error);
+            return next(new CustomError_1.default(constant_1.STATUS_CODES.FORBIDDEN, constant_1.MESSAGES.FORBIDDEN));
         }
     });
 };

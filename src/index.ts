@@ -32,8 +32,8 @@ app.use(express.json());
 app.use(Routes.SWAGGER, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Sử dụng các route
-app.use(Routes.API_SEARCH_PRODUCT, productRoute);
-app.use(Routes.API_LOGIN, userRoute);
+app.use(Routes.API, productRoute);
+app.use(Routes.API, userRoute);
 
 //middleware xử lý lỗi
 app.use(errorHandler);

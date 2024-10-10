@@ -166,3 +166,141 @@ paths:
           description: Unauthorized, invalid phone or password.
         '500':
           description: Internal server error.
+
+  /api/get-all-user:
+    get:
+      summary: Get a list of users
+      description: Retrieve all registered users.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: A list of users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: User ID
+                        phone:
+                          type: string
+                          description: User phone number
+                        pass:
+                          type: string
+                          description: User password
+                        userGroup_id:
+                          type: integer
+                          description: User group ID
+        '400':
+          description: Bad request, invalid parameters.
+        '401':
+          description: Unauthorized, invalid token or no token provided.
+        '403':
+          description: Do not have permission.
+        '500':
+          description: Internal server error.
+
+  /api/add-user:
+    post:
+      summary: Add a new user
+      description: Create a new user with the provided details.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  description: Phone number of the user.
+                pass:
+                  type: string
+                  description: Password of the user.
+                group:
+                  type: string
+                  description: user group.
+              required:
+                - phone
+                - pass
+                - group
+      responses:
+        '201':
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  phone:
+                    type: string
+                    description: Phone number of the user.
+                  pass:
+                    type: string
+                    description: Password of the user.
+                  group:
+                    type: string
+                    description: user group.
+        '400':
+          description: Bad request, invalid parameters.
+        '401':
+          description: Unauthorized, invalid token or no token provided.
+        '403':
+          description: Do not have permission.
+        '500':
+          description: Internal server error.
+
+  /api/delete-user:
+    delete:
+      summary: Delete a user
+      description: Remove a user based on the provided phone number.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  description: Phone number of the user to delete.
+              required:
+                - phone
+      responses:
+        '200':
+          description: User deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  phone:
+                    type: string
+                    description: Phone number of the user.
+                  pass:
+                    type: string
+                    description: Password of the user.
+                  group:
+                    type: string
+                    description: user group.
+        '400':
+          description: Bad request, invalid parameters.
+        '401':
+          description: Unauthorized, invalid token or no token provided.
+        '403':
+          description: Do not have permission.
+        '404':
+          description: User not found.
+        '500':
+          description: Internal server error.

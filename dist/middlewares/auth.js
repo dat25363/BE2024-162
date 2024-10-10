@@ -13,20 +13,17 @@ const authenticateByToken = (req, res, next) => {
     var _a;
     const token = (_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1]; // Lấy token từ header
     if (!token) {
-        const error = new CustomError_1.default(constant_1.STATUS_CODES.UNAUTHORIZED, constant_1.MESSAGES.UNAUTHORIZED);
-        return next(error);
+        return next(new CustomError_1.default(constant_1.STATUS_CODES.UNAUTHORIZED, constant_1.MESSAGES.UNAUTHORIZED));
     }
     jsonwebtoken_1.default.verify(token, constant_2.TOKEN.SECRET_KEY || "", (err, decoded) => {
         if (err) {
-            const error = new CustomError_1.default(constant_1.STATUS_CODES.UNAUTHORIZED, constant_1.MESSAGES.UNAUTHORIZED);
-            return next(error);
+            return next(new CustomError_1.default(constant_1.STATUS_CODES.UNAUTHORIZED, constant_1.MESSAGES.UNAUTHORIZED));
         }
         if (decoded) {
             req.user = decoded; // Gán thông tin người dùng vào req
         }
         else {
-            const error = new CustomError_1.default(constant_1.STATUS_CODES.UNAUTHORIZED, constant_1.MESSAGES.UNAUTHORIZED);
-            return next(error);
+            return next(new CustomError_1.default(constant_1.STATUS_CODES.UNAUTHORIZED, constant_1.MESSAGES.UNAUTHORIZED));
         }
         next();
     });

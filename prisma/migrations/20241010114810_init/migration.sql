@@ -88,7 +88,7 @@ ALTER TABLE `groupPermission` ADD CONSTRAINT `groupPermission_permissionId_fkey`
 ALTER TABLE `users` ADD CONSTRAINT `users_userGroup_id_fkey` FOREIGN KEY (`userGroup_id`) REFERENCES `userGroups`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `routePermission` ADD CONSTRAINT `routePermission_routeId_fkey` FOREIGN KEY (`routeId`) REFERENCES `routes`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `routePermission` ADD CONSTRAINT `routePermission_routeId_fkey` FOREIGN KEY (`routeId`) REFERENCES `routes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `routePermission` ADD CONSTRAINT `routePermission_permissionId_fkey` FOREIGN KEY (`permissionId`) REFERENCES `permissions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `routePermission` ADD CONSTRAINT `routePermission_permissionId_fkey` FOREIGN KEY (`permissionId`) REFERENCES `permissions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

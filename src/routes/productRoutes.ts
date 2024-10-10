@@ -9,7 +9,7 @@ import { authenticateByToken } from '../middlewares/auth';
 const router = express.Router();
 
 router.get(
-  Routes.ROOT,
+  Routes.SEARCH_PRODUCT,
   authenticateByToken,
   checkPermission(routeName.SEARCH_PRODUCT),
   validateQuery,

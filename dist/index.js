@@ -38,8 +38,8 @@ app.use(express_1.default.json());
 // Cấu hình Swagger UI
 app.use(constant_1.Routes.SWAGGER, swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocument));
 // Sử dụng các route
-app.use(constant_1.Routes.API_SEARCH_PRODUCT, productRoutes_1.default);
-app.use(constant_1.Routes.API_LOGIN, userRoutes_1.default);
+app.use(constant_1.Routes.API, productRoutes_1.default);
+app.use(constant_1.Routes.API, userRoutes_1.default);
 //middleware xử lý lỗi
 app.use(errorHandler_1.errorHandler);
 // Khởi động server

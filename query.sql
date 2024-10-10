@@ -37,13 +37,19 @@ INSERT INTO permissions (permission_name) VALUES
 ('view products'),
 ('delete products'),
 ('add products'),
-('update products');
+('update products'),
+('get all user'),
+('add user'),
+('delete user');
 
 INSERT INTO groupPermission (userGroupId, permissionId) VALUES
 (1, 1),  -- admin - view products
 (1, 2),  -- admin - delete products
 (1, 3),  -- admin - add products
 (1, 4),  -- admin - update products
+(1, 5),  -- admin - get all user
+(1, 6),  -- admin - add user
+(1, 7),  -- admin - delete user
 (2, 1);  -- user - view products
 
 INSERT INTO users(phone,pass,userGroup_id) VALUES
@@ -51,7 +57,13 @@ INSERT INTO users(phone,pass,userGroup_id) VALUES
 ('user','$2a$12$sgRf9EniS2D2IguqZAQDr.EU9dBdwSA6x2VfLL9yTWBfnwUsb/2US',2);
 
 INSERT INTO routes(route_name) VALUES
-("search product");
+("search product"),
+("get all user"),
+("add user"),
+("delete user");
 
 INSERT INTO routePermission(routeId,permissionId) VALUES
-(1, 1); -- search product - view products
+(1, 1), -- search product - view products
+(2, 5), -- get all user - get all user
+(3, 6), -- add user - add user
+(4, 7); -- delete user - delete user

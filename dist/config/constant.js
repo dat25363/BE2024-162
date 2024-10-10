@@ -29,12 +29,19 @@ exports.MESSAGES = {
 };
 exports.Routes = {
     ROOT: '/',
-    API_SEARCH_PRODUCT: '/api/product-search',
-    API_LOGIN: '/api/login',
+    API: '/api',
+    SEARCH_PRODUCT: '/product-search',
+    LOGIN: '/login',
+    GET_ALL_USER: '/get-all-user',
+    ADD_USER: '/add-user',
+    DELETE_USER: '/delete-user',
     SWAGGER: '/api-docs'
 };
 exports.routeName = {
-    SEARCH_PRODUCT: "search product"
+    SEARCH_PRODUCT: "search product",
+    GET_ALL_USER: "get all user",
+    ADD_USER: "add user",
+    DELETE_USER: "delete user"
 };
 exports.STATUS_CODES = {
     OK: 200,
